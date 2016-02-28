@@ -1,0 +1,45 @@
+@model WordsViewModel
+
+<div id="words-list">
+    <div id="words-header">
+        <div id="words-header-translation" class="words-cell">
+            Translated Word
+        </div>
+        <div id="words-header-english" class="words-cell"> 
+            English Version
+        </div>
+    </div>
+    <div id="words-body">
+        @foreach (var word in Model.Words)
+        {
+            <div class="words-body-row">
+                <div class="words-body-translation words-cell">
+                    @Html.CheckBoxFor(x => word.Value)
+                    <span class="list-words" data-wordid="@word.Key.Id" data-toggle="modal" data-target="#sentances-modal">
+                        @Html.DisplayTextFor(x => word.Key.Translation)
+                    </span>
+                </div>
+                <div class="words-body-english words-cell">
+                    @Html.DisplayTextFor(x => word.Key.EnglishTranslation)
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="sentances-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sentances</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

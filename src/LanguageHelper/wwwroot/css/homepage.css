@@ -1,0 +1,35 @@
+#words-list {
+  display: table;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 50%;
+  margin-top: 20px; }
+
+#words-header {
+  display: table-header-group;
+  background-color: #dddddd;
+  font-weight: bold; }
+
+#words-header-translation, #words-header-english {
+  display: table-cell;
+  border: 1px solid black;
+  border-bottom: 3px solid black; }
+
+#words-body {
+  display: table-row-group;
+  background-color: #eeeeee; }
+
+.words-body-row {
+  display: table-row; }
+
+.words-body-translation, .words-body-english {
+  display: table-cell;
+  border: 1px solid black; }
+
+.words-cell {
+  padding: 5px; }
+
+.list-words {
+  align-content: center; }
+
+/*# sourceMappingURL=homepage.css.map */

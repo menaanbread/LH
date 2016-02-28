@@ -1,0 +1,19 @@
+@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Language Helper</h2>
+
+<h3>@Model.Languages[0].Name</h3>
+    
+<button type="submit" id="showHideWords" data-languageId="@Model.Languages[0].Id" data-show="true" class="btn btn-info get-words">Show Words</button>
+
+<div id="wordsArea">
+    
+</div>
+
+<environment names="Development">
+    <script src="~/js/Home.js"></script>
+</environment>
