@@ -16,7 +16,7 @@ var Home = (function () {
             $.ajax({
                 type: "POST",
                 url: this.SHOW_WORDS_URL,
-                data: { languageId: $(e.target).data("languageid") }
+                data: { languageId: this.showLanguageButton.languageId }
             })
                 .done(function (html) { return _this.populateWordsArea(html, _this); })
                 .fail(this.handleAjaxError);
@@ -38,7 +38,7 @@ var Home = (function () {
         alert(errorThrown.message);
     };
     return Home;
-}());
+})();
 var ShowHideButton = (function () {
     function ShowHideButton() {
         this.reference = $("#showHideWords");
@@ -50,7 +50,7 @@ var ShowHideButton = (function () {
         get: function () {
             var languageid = 0;
             if (this.isDefined()) {
-                languageid = $(this.reference).data("languageid");
+                languageid = $('.select-language:checked').data('languageid');
             }
             return languageid;
         },
@@ -83,7 +83,7 @@ var ShowHideButton = (function () {
         configurable: true
     });
     return ShowHideButton;
-}());
+})();
 var ShowSentances = (function () {
     function ShowSentances() {
         var _this = this;
@@ -109,7 +109,7 @@ var ShowSentances = (function () {
         alert(errorThrown.message);
     };
     return ShowSentances;
-}());
+})();
 $(document).ready(function () {
     var home = new Home();
 });

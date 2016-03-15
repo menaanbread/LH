@@ -24,7 +24,7 @@ class Home {
             $.ajax({
                 type: "POST",
                 url: this.SHOW_WORDS_URL,
-                data: { languageId : $(e.target).data("languageid") }
+                data: { languageId : this.showLanguageButton.languageId }
             })
             .done((html) => this.populateWordsArea(html, this))
             .fail(this.handleAjaxError);
@@ -66,7 +66,7 @@ class ShowHideButton {
         
         var languageid: number = 0;
         if (this.isDefined()) {
-            languageid = $(this.reference).data("languageid");
+            languageid = $('.select-language:checked').data('languageid');
         }
         return languageid;
     }

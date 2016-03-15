@@ -31,5 +31,12 @@
 
 .list-words {
   align-content: center; }
+  
+.language-option, .select-language {
+    display: inline;
+    border-bottom: 5px; }
+        
+.get-words {
+    display: block; }
 
 /*# sourceMappingURL=homepage.css.map */

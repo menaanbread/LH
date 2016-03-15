@@ -37,7 +37,7 @@ namespace LanguageHelper.Controllers
             {
                 wordsViewModel.Words.Add(word, false);
             }
-            
+                        
             return PartialView(wordsViewModel);
         }
         

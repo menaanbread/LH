@@ -17,6 +17,40 @@ namespace LanguageHelper.Test.Mocks.Repositories
             _words = new List<Word>();
             _sentances = new List<Sentance>();
             
+            AddWelsh();
+            AddSpanish();
+        }
+        
+        List<Language> ILanguageRepository.ListLanguages()
+        {
+            return _languages;
+        }
+        
+        List<Word> ILanguageRepository.ListWords(int languageId)
+        {
+            return _languages.Find(x => x.Id == languageId).Words;
+        }
+        
+        List<Sentance> ILanguageRepository.ListSentances(int wordId)
+        {
+            return _words.Find(x => x.Id == wordId).Sentances;
+        }
+        
+        List<Word> ILanguageRepository.FindWords(int languageId, string search)
+        {
+            var words = new List<Word>();
+            var allLanguageWords = _languages.Find(x => x.Id == languageId).Words;
+            
+            if (allLanguageWords.Any())
+            {
+                words.AddRange(allLanguageWords.FindAll(x => x.Translation.Contains(search)));
+            }
+            
+            return words;
+        }
+        
+        private static void AddWelsh() 
+        {
             var boreSentances = new List<Sentance>();
             boreSentances.Add(new Sentance() { Id = 1, TranslatedSentance = "Bore Da", EnglishSentance = "Good Morning" });
             boreSentances.Add(new Sentance() { Id = 2, TranslatedSentance = "Bore Dydd Llun", EnglishSentance = "Monday Morning" });
@@ -104,36 +138,73 @@ namespace LanguageHelper.Test.Mocks.Repositories
             _sentances.AddRange(codiSentances);
             _sentances.AddRange(wediBlinoSentances); 
             
+            _languages.Add(new Language() { Name = "Welsh", Id = 1, Words = _words.Where(x => x.Id < 14).ToList() });    
+        }
+        
+        private static void AddSpanish() 
+        {
+            var holaSentances = new List<Sentance>();
+            holaSentances.Add(new Sentance() { Id = 34, TranslatedSentance = "Hola Tom", EnglishSentance = "Hello Tom" });
+            holaSentances.Add(new Sentance() { Id = 35, TranslatedSentance = "Hola, que pasó?", EnglishSentance = "Hello, how is it going?" });
             
-            _languages.Add(new Language() { Name = "Welsh", Id = 1, Words = _words });
-        }
+            var adiosSentances = new List<Sentance>();
+            adiosSentances.Add(new Sentance() { Id = 36, TranslatedSentance = "Adiós, amigo", EnglishSentance = "Goodbye, friend" });
+            adiosSentances.Add(new Sentance() { Id = 37, TranslatedSentance = "Adiós y buenas noches", EnglishSentance = "Goodbye and goodnight" });
         
-        List<Language> ILanguageRepository.ListLanguages()
-        {
-            return _languages;
-        }
-        
-        List<Word> ILanguageRepository.ListWords(int languageId)
-        {
-            return _languages.Find(x => x.Id == languageId).Words;
-        }
-        
-        List<Sentance> ILanguageRepository.ListSentances(int wordId)
-        {
-            return _words.Find(x => x.Id == wordId).Sentances;
-        }
-        
-        List<Word> ILanguageRepository.FindWords(int languageId, string search)
-        {
-            var words = new List<Word>();
-            var allLanguageWords = _languages.Find(x => x.Id == languageId).Words;
+            var cebollaSentances = new List<Sentance>();
+            cebollaSentances.Add(new Sentance() { Id = 38, TranslatedSentance = "Tengo una cebolla", EnglishSentance = "I have an onion" });
+            cebollaSentances.Add(new Sentance() { Id = 39, TranslatedSentance = "Ella come una cebolla", EnglishSentance = "She eats an onion" });
             
-            if (allLanguageWords.Any())
-            {
-                words.AddRange(allLanguageWords.FindAll(x => x.Translation.Contains(search)));
-            }
+            var monoSentances = new List<Sentance>();
+            monoSentances.Add(new Sentance() { Id = 40, TranslatedSentance = "Tenemos un mono", EnglishSentance = "We have a monkey" });
+            monoSentances.Add(new Sentance() { Id = 41, TranslatedSentance = "El mono le gusta el pan", EnglishSentance = "The monkey likes bread" });
             
-            return words;
+            var cartaSentances = new List<Sentance>();
+            cartaSentances.Add(new Sentance() { Id = 42, TranslatedSentance = "Escribo una carta", EnglishSentance = "I write a letter" });
+            cartaSentances.Add(new Sentance() { Id = 43, TranslatedSentance = "Tú tiene una carta", EnglishSentance = "You have a letter" });
+            
+            var comidaSentances = new List<Sentance>();
+            comidaSentances.Add(new Sentance() { Id = 44, TranslatedSentance = "Comemos comida", EnglishSentance = "We eat food" });
+            comidaSentances.Add(new Sentance() { Id = 45, TranslatedSentance = "Quiero comida", EnglishSentance = "I want food" });
+            
+            var jugoSentances = new List<Sentance>();
+            jugoSentances.Add(new Sentance() { Id = 46, TranslatedSentance = "Ella bebe jugo", EnglishSentance = "She drinks juice" });
+            jugoSentances.Add(new Sentance() { Id = 47, TranslatedSentance = "Bebo jugo", EnglishSentance = "I drink juice" });
+            
+            var ustedSentances = new List<Sentance>();
+            ustedSentances.Add(new Sentance() { Id = 48, TranslatedSentance = "Usted no come pan", EnglishSentance = "You do not drink bread" });
+            ustedSentances.Add(new Sentance() { Id = 49, TranslatedSentance = "Usted es un hombre", EnglishSentance = "You are a man" });
+            
+            var mujerSentances = new List<Sentance>();
+            mujerSentances.Add(new Sentance() { Id = 50, TranslatedSentance = "Tú no eres una mujer", EnglishSentance = "You are not a woman" });
+            mujerSentances.Add(new Sentance() { Id = 51, TranslatedSentance = "La mujer come", EnglishSentance = "The women eats" });
+            
+            var ninaSentances = new List<Sentance>();
+            ninaSentances.Add(new Sentance() { Id = 52, TranslatedSentance = "Ella es una niña", EnglishSentance = "She is a girl" });
+            ninaSentances.Add(new Sentance() { Id = 53, TranslatedSentance = "La niña bebe agua", EnglishSentance = "The girl drinks water" });
+            
+            _words.Add(new Word() { Id = 14, Translation = "Hola", EnglishTranslation = "Hello", Sentances = holaSentances });
+            _words.Add(new Word() { Id = 15, Translation = "Adiós", EnglishTranslation = "Goodbye", Sentances = adiosSentances });
+            _words.Add(new Word() { Id = 16, Translation = "Cebolla", EnglishTranslation = "Onion", Sentances = cebollaSentances });
+            _words.Add(new Word() { Id = 17, Translation = "Mono", EnglishTranslation = "Monkey", Sentances = monoSentances });
+            _words.Add(new Word() { Id = 18, Translation = "Carta", EnglishTranslation = "Letter", Sentances = cartaSentances });
+            _words.Add(new Word() { Id = 19, Translation = "Comida", EnglishTranslation = "Food", Sentances = comidaSentances });
+            _words.Add(new Word() { Id = 20, Translation = "Jugo", EnglishTranslation = "Juice", Sentances =jugoSentances });
+            _words.Add(new Word() { Id = 21, Translation = "Usted", EnglishTranslation = "You (formal)", Sentances = ustedSentances });
+            _words.Add(new Word() { Id = 22, Translation = "Mujer", EnglishTranslation = "Woman", Sentances = mujerSentances });
+            _words.Add(new Word() { Id = 23, Translation = "Niña", EnglishTranslation = "Girl", Sentances = ninaSentances });
+            
+            _sentances.AddRange(holaSentances);
+            _sentances.AddRange(adiosSentances);
+            _sentances.AddRange(cebollaSentances);
+            _sentances.AddRange(cartaSentances);
+            _sentances.AddRange(comidaSentances);
+            _sentances.AddRange(jugoSentances);
+            _sentances.AddRange(ustedSentances);
+            _sentances.AddRange(mujerSentances);
+            _sentances.AddRange(ninaSentances);
+            
+            _languages.Add(new Language() { Name = "Spanish", Id = 2, Words = _words.Where(x => x.Id >= 14).ToList() });
         }
     }
 }
