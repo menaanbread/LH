@@ -14,13 +14,14 @@
         {
             <div class="words-body-row">
                 <div class="words-body-translation words-cell">
-                    @Html.CheckBoxFor(x => word.Value)
-                    <span class="list-words" data-wordid="@word.Key.Id" data-toggle="modal" data-target="#sentances-modal">
-                        @Html.DisplayTextFor(x => word.Key.Translation)
+                    @Html.HiddenFor(x => word.Word.Id)
+                    @Html.CheckBoxFor(x => word.Selected)
+                    <span class="list-words" data-wordid="@word.Word.Id" data-toggle="modal" data-target="#sentances-modal">
+                        @Html.DisplayTextFor(x => word.Word.Translation)
                     </span>
                 </div>
                 <div class="words-body-english words-cell">
-                    @Html.DisplayTextFor(x => word.Key.EnglishTranslation)
+                    @Html.DisplayTextFor(x => word.Word.EnglishTranslation)
                 </div>
             </div>
         }

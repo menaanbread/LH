@@ -2,6 +2,7 @@ using Microsoft.AspNet.Mvc;
 using System.Collections.Generic;
 using LanguageHelper.Domain.Interfaces;
 using LanguageHelper.Domain.Languages;
+using LanguageHelper.Models;
 using LanguageHelper.ViewModels;
 
 namespace LanguageHelper.Controllers
@@ -30,12 +31,12 @@ namespace LanguageHelper.Controllers
         public IActionResult LanguageSet(int languageId)
         {
             var wordsViewModel = new WordsViewModel();
-            wordsViewModel.Words = new Dictionary<Word, bool>();
+            wordsViewModel.Words = new List<WordCheck>();
             var languageWords = _languageRepository.ListWords(languageId);
             
             foreach (var word in languageWords) 
             {
-                wordsViewModel.Words.Add(word, false);
+                wordsViewModel.Words.Add(new WordCheck() { Word = word, Selected = false });
             }
                         
             return PartialView(wordsViewModel);

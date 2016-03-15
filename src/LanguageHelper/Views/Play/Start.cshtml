@@ -1,0 +1,8 @@
+@model List<WordIdCheck>
+
+<h1>THIS WORKD</h1>
+
+@foreach (var word in Model)
+{
+    <p>@word.Word.Id</p> <p>@word.Selected</p>
+}

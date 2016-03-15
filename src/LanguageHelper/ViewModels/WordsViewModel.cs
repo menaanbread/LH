@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using LanguageHelper.Domain.Languages;
+using LanguageHelper.Models;
 
 namespace LanguageHelper.ViewModels
 {
     public class WordsViewModel
     {
-        public Dictionary<Word, bool> Words { get; set; }
+        public List<WordCheck> Words { get; set; }
     }
 }
