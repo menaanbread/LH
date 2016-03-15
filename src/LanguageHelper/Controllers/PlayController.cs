@@ -1,16 +1,17 @@
 using Microsoft.AspNet.Mvc;
-using System.Collections.Generic;
-using LanguageHelper.Models;
 using System;
+using LanguageHelper.ViewModels;
+using System.Collections.Generic;
 
 namespace LanguageHelper.Controllers
 {
     public class PlayController : Controller
     {
-        public IActionResult Start(List<WordIdCheck> startModel)
+        public IActionResult Start(List<WordIdsViewModel> word)
         {
-            Console.WriteLine("DEBUGGING -" + startModel.Count);
-            return View(startModel);
+            Console.WriteLine("DEBUGGING - something first");
+            Console.WriteLine("DEBUGGING -" + word.Count);
+            return View(word);
         }
     }
 }
