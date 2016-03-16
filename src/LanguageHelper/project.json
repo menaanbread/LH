@@ -21,7 +21,9 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "LanguageHelper.Domain": "1.0.0-*",
-    "LanguageHelper.Test.Mocks": "1.0.0-*"
+    "LanguageHelper.Test.Mocks": "1.0.0-*",
+    "LanguageHelper.Services.Interfaces": "1.0.0-*",
+    "LanguageHelper.Services": "1.0.0-*"
   },
 
   "commands": {

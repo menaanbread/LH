@@ -4,8 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using LanguageHelper.Domain.Interfaces;
-using LanguageHelper.Test.Mocks.Test;
 using LanguageHelper.Test.Mocks.Repositories;
+using LanguageHelper.Services.Interfaces;
+using LanguageHelper.Services;
 
 namespace LanguageHelper
 {
@@ -28,8 +29,8 @@ namespace LanguageHelper
             // Add framework services.
             services.AddMvc();
             
-            services.AddTransient<ITest, ConsoleTest>();
             services.AddTransient<ILanguageRepository, MockedLanguageRepository>();
+            services.AddTransient<ILanguageHelperService, LanguageHelperService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

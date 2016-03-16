@@ -4,25 +4,24 @@ using LanguageHelper.Domain.Interfaces;
 using LanguageHelper.Domain.Languages;
 using LanguageHelper.Models;
 using LanguageHelper.ViewModels;
+using LanguageHelper.Services.Interfaces;
+using LanguageHelper.Domain.List;
 
 namespace LanguageHelper.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ITest _test = null;
-        private readonly ILanguageRepository _languageRepository = null;
+        private readonly ILanguageHelperService _languageHelperService = null;
         
-        public HomeController(ITest test, ILanguageRepository languageRepository)
+        public HomeController(ILanguageHelperService languageHelperService)
         {
-            _test = test;
-            _languageRepository = languageRepository;
+            _languageHelperService = languageHelperService;
         }
         
         public IActionResult Index()
         {
             var homeViewModel = new HomeViewModel();
-            homeViewModel.Message = _test.PrintMessage();
-            homeViewModel.Languages = _languageRepository.ListLanguages();
+            homeViewModel.Languages = _languageHelperService.ListLanguages().Languages;
             
             return View(homeViewModel);
         }
@@ -31,8 +30,7 @@ namespace LanguageHelper.Controllers
         public IActionResult LanguageSet(int languageId)
         {
             var wordsViewModel = new WordsViewModel();
-            wordsViewModel.Words = new List<WordCheck>();
-            var languageWords = _languageRepository.ListWords(languageId);
+            var languageWords = _languageHelperService.ListWords(new ListWordsRequest() { LanguageId = languageId }).Words;
             
             foreach (var word in languageWords) 
             {
@@ -48,7 +46,7 @@ namespace LanguageHelper.Controllers
             var sentancesViewModel = new SentancesViewModel();
             sentancesViewModel.Sentances = new List<Sentance>();
             
-            sentancesViewModel.Sentances = _languageRepository.ListSentances(wordId);
+            sentancesViewModel.Sentances = _languageHelperService.ListSentances(new ListSentancesRequest() { WordId = wordId }).Sentances;
 
             return PartialView(sentancesViewModel);
         }
