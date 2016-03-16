@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace LanguageHelper.Models
 {
     public class WordIdCheck    
     {        
-        public int Id { get; set; }
+        public List<int> Id { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-@model List<WordIdsViewModel>
+@model PlayStartViewModel
 
 <h1>THIS WORKD</h1>
 
-@foreach (var word in Model)
+@foreach (var id in Model.SelectedWords)
 {
-    <p>@word.Word.Id</p> <p>@word.Selected</p>
+    <p>@id</p>
 }

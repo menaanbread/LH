@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using LanguageHelper.Models;
 
 namespace LanguageHelper.ViewModels
@@ -5,6 +6,6 @@ namespace LanguageHelper.ViewModels
     public class WordIdsViewModel
     {
         public WordIdCheck Word { get; set; }
-        public bool Selected { get; set; }
+        public List<bool> Selected { get; set; }
     }
 }
