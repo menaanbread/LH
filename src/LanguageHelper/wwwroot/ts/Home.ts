@@ -44,7 +44,7 @@ class Home {
         sentances.intialise();
     }
 
-    private handleAjaxError(jqXHR, textStatus, errorThrown: SyntaxError) {
+    private handleAjaxError(jqXHR: any, textStatus: any, errorThrown: SyntaxError) {
         alert(errorThrown.message);
     }
 }
@@ -120,7 +120,7 @@ class ShowSentances {
         $(".modal-body").html(html);
     }
 
-    private handleAjaxError(jqXHR, textStatus, errorThrown: SyntaxError) {
+    private handleAjaxError(jqXHR: any, textStatus: any, errorThrown: SyntaxError) {
         alert(errorThrown.message);
     }
 }

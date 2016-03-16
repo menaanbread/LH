@@ -1,8 +1,12 @@
 {
     "version": "0.1.0",
-    "command": "tsc",
+    "command": "gulp",
     "isShellCommand": true,
-    "showOutput": "always",
-    "args": ["Home.ts"],
-    "problemMatcher": "$tsc"
+    "tasks": [
+		{
+			"taskName": "watch",
+			"isBuildCommand": true,
+			"showOutput": "always"
+		}
+	]
 }

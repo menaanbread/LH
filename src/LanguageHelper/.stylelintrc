@@ -49,7 +49,6 @@
     "media-query-list-comma-space-before": "never",
     "media-query-parentheses-space-inside": "always",
     "no-descending-specificity": true,
-    "no-duplicate-selectors": true,
     "no-eol-whitespace": true,
     "no-invalid-double-slash-comments": true,
     "no-missing-eof-newline": true,

@@ -34,13 +34,13 @@ var paths = {
 
 // Typescript
 
-var tsProject = ts.createProject('tsconfig.json');
-
 gulp.task("ts:compile", function() {
-    var tsResult = tsProject.src(paths.ts)
-        .pipe(ts(tsProject));
-        
-    return tsResult.js.pipe(gulp.dest(paths.tsOut)); 
+    return gulp.src(paths.ts)
+    .pipe(ts({
+        noImplicitAny: true,
+        target: "ES6"
+    }))
+    .pipe(gulp.dest(paths.tsOut));
 });
 
 gulp.task("ts:lint", function() {
@@ -77,9 +77,15 @@ gulp.task('lint-css', function () {
     }));
 });
 
-gulp.task("watch", ["ts:lint", "ts:compile", "lint-css", "postcss"], function() {
-    gulp.watch(paths.ts, ["ts:lint", "ts:compile", "lint-css", "postcss"]);
+gulp.task("watch:ts", ["ts:lint", "ts:compile"], function() {
+    gulp.watch(paths.ts, ["ts:lint", "ts:compile"]);
 });
+
+gulp.task("watch:css", ["lint-css", "postcss"], function() {
+    gulp.watch(paths.precss, ["lint-css", "postcss"]);
+});
+
+gulp.task("watch", ["watch:ts", "watch:css"]);
 
 // Release
 
