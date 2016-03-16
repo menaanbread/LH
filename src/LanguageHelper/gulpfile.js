@@ -23,7 +23,7 @@ var paths = {
   js: webroot + "js/**/*.js",
   minJs: webroot + "js/**/*.min.js",
   ts: webroot + "ts/**/*.ts",
-  tsOut: webroot + "js",
+  tsOut: webroot + "js/",
   precss: webroot + "css/pre/**/*.post",
   postcss: webroot + "css/post/",
   css: webroot + "css/**/*.css",
@@ -36,11 +36,14 @@ var paths = {
 
 gulp.task("ts:compile", function() {
     return gulp.src(paths.ts)
-    .pipe(ts({
-        noImplicitAny: true,
-        target: "ES6"
-    }))
-    .pipe(gulp.dest(paths.tsOut));
+        .pipe(ts({
+            allowJs: true,
+            noImplicitAny: true,
+            target: "ES5",
+            sourceMap: true,
+            outDir: paths.tsOut
+        }))
+        .pipe(gulp.dest(paths.tsOut));
 });
 
 gulp.task("ts:lint", function() {
