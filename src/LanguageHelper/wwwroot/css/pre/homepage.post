@@ -1,0 +1,58 @@
+$border-style: 1px solid black;
+$header-colour: #dddddd;
+$body-colour: #eeeeee;
+
+#words-list {
+    border: $border-style;
+    border-radius: 5px;
+    display: table;
+    margin-top: 20px;
+    width: 50%;
+}
+
+#words-header {
+    background-color: $header-colour;
+    display: table-header-group;
+    font-weight: bold;
+}
+
+#words-header-translation, #words-header-english {
+    border: $border-style;
+    border-bottom: 3px solid black;
+    display: table-cell;
+}
+
+#words-body {
+    background-color: $body-colour;
+    display: table-row-group;
+}
+
+.words-body-row {
+    display: table-row;
+}
+
+.words-body-translation, .words-body-english {
+    border: $border-style;
+    display: table-cell;
+}
+
+.words-cell {
+    padding: 5px;
+}
+
+.list-words {
+    align-content: center;
+}
+
+.language-option, .select-language {
+    display: inline;
+}
+
+.get-words {
+    display: block;
+}
+
+.test {
+    display: flex;
+    left: 5rem;
+}

@@ -1,0 +1,58 @@
+#words-list {
+    border: 1px solid black;
+    border-radius: 5px;
+    display: table;
+    margin-top: 20px;
+    width: 50%;
+}
+
+#words-header {
+    background-color: #dddddd;
+    display: table-header-group;
+    font-weight: bold;
+}
+
+#words-header-translation, #words-header-english {
+    border: 1px solid black;
+    border-bottom: 3px solid black;
+    display: table-cell;
+}
+
+#words-body {
+    background-color: #eeeeee;
+    display: table-row-group;
+}
+
+.words-body-row {
+    display: table-row;
+}
+
+.words-body-translation, .words-body-english {
+    border: 1px solid black;
+    display: table-cell;
+}
+
+.words-cell {
+    padding: 5px;
+}
+
+.list-words {
+    -webkit-align-content: center;
+        -ms-flex-line-pack: center;
+            align-content: center;
+}
+
+.language-option, .select-language {
+    display: inline;
+}
+
+.get-words {
+    display: block;
+}
+
+.test {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    left: 5rem;
+}

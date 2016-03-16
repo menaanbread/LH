@@ -52,7 +52,7 @@
       "npm install",
       "bower install",
       "gulp clean",
-      "gulp min"
+      "gulp build"
     ]
   }
 }

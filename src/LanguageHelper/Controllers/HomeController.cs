@@ -1,6 +1,5 @@
 using Microsoft.AspNet.Mvc;
 using System.Collections.Generic;
-using LanguageHelper.Domain.Interfaces;
 using LanguageHelper.Domain.Languages;
 using LanguageHelper.Models;
 using LanguageHelper.ViewModels;

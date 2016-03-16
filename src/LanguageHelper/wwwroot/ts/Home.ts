@@ -1,96 +1,90 @@
-/// <reference path="jquery/jquery.d.ts" />
+/// <reference path="../typings/jquery.d.ts" />
 
 class Home {
-    
-    SHOW_WORDS_URL: string = "Home/LanguageSet";
-    
-    showLanguageButton: ShowHideButton;
-    wordsArea: JQuery;
-    
-    constructor() {
-        
+
+    public SHOW_WORDS_URL: string = "Home/LanguageSet";
+
+    public showLanguageButton: ShowHideButton;
+    public wordsArea: JQuery;
+
+    public constructor() {
         this.showLanguageButton = new ShowHideButton();
         this.showLanguageButton.shouldShowWords = true;
         this.wordsArea = $("#wordsArea");
-        
+    }
+
+    public initialse() {
         if (this.showLanguageButton.isDefined() && this.wordsArea) {
             $(this.showLanguageButton.reference).click((e) => { this.onShowWordsClick(e); });
         }
     }
-    
+
     private onShowWordsClick(e: JQueryEventObject) {
-        
         if (this.showLanguageButton.shouldShowWords) {
             $.ajax({
+                data: { languageId : this.showLanguageButton.languageId },
                 type: "POST",
-                url: this.SHOW_WORDS_URL,
-                data: { languageId : this.showLanguageButton.languageId }
+                url: this.SHOW_WORDS_URL
             })
             .done((html) => this.populateWordsArea(html, this))
             .fail(this.handleAjaxError);
         } else {
             this.wordsArea.hide();
-            this.showLanguageButton.shouldShowWords = true;  
-            this.showLanguageButton.buttonText = "Show Words"; 
+            this.showLanguageButton.shouldShowWords = true;
+            this.showLanguageButton.buttonText = "Show Words";
         }
     }
-    
+
     private populateWordsArea(html: string, context: Home) {
         context.wordsArea.show();
-        context.wordsArea.html(html)
+        context.wordsArea.html(html);
         context.showLanguageButton.shouldShowWords = false;
         context.showLanguageButton.buttonText = "Hide Words";
-        new ShowSentances();
+        let sentances = new ShowSentances();
+        sentances.intialise();
     }
-    
+
     private handleAjaxError(jqXHR, textStatus, errorThrown: SyntaxError) {
         alert(errorThrown.message);
     }
 }
 
 class ShowHideButton {
-    
-    reference: JQuery;
-    
-    constructor() {
-        
+
+    public reference: JQuery;
+
+    public constructor() {
         this.reference = $("#showHideWords");
     }
-    
-    isDefined() {
-        
+
+    public isDefined() {
         return this.reference && this.reference !== undefined;
     }
-    
-    get languageId(): number {
-        
-        var languageid: number = 0;
+
+    public get languageId(): number {
+        let languageid = 0;
         if (this.isDefined()) {
-            languageid = $('.select-language:checked').data('languageid');
+            languageid = $(".select-language:checked").data("languageid");
         }
         return languageid;
     }
-    
-    get shouldShowWords(): boolean {
-        
-        var showOption: boolean = true;
-        
+
+    public get shouldShowWords(): boolean {
+        let showOption = true;
+
         if (this.isDefined()) {
             showOption = $(this.reference).data("show");
         }
-        
+
         return showOption;
     }
-    
-    set shouldShowWords(show: boolean) {
-        
+    public set shouldShowWords(show: boolean) {
         if (this.isDefined()) {
             $(this.reference).data("show", show);
         }
     }
-    
-    set buttonText(buttonText: string) {
-        
+
+    public set buttonText(buttonText: string) {
         if (this.isDefined) {
             $(this.reference).text(buttonText);
         }
@@ -98,41 +92,40 @@ class ShowHideButton {
 }
 
 class ShowSentances {
-    
-    LIST_SENTANCES_URL: string = "Home/ListSentances";
-    reference: JQuery;
-    
-    constructor() {
 
+    public LIST_SENTANCES_URL: string = "Home/ListSentances";
+    public reference: JQuery;
+
+    public constructor() {
         this.reference = $("#sentances-modal");
-        
+    }
+
+    public intialise() {
         if (this.reference) {
-            this.reference.on("show.bs.modal", (e) => this.populateAndShow(e, this));            
+            this.reference.on("show.bs.modal", (e) => this.populateAndShow(e, this));
         }
     }
-    
+
     private populateAndShow(e: JQueryEventObject, context: ShowSentances) {
-        
         $.ajax({
+                data: { wordId : $(e.relatedTarget).data("wordid") },
                 type: "POST",
-                url: context.LIST_SENTANCES_URL,
-                data: { wordId : $(e.relatedTarget).data("wordid") }
+                url: context.LIST_SENTANCES_URL
             })
             .done(context.populatePopup)
             .fail(context.handleAjaxError);
     }
-    
+
     private populatePopup(html: string) {
-        
         $(".modal-body").html(html);
     }
-    
+
     private handleAjaxError(jqXHR, textStatus, errorThrown: SyntaxError) {
-    
         alert(errorThrown.message);
     }
 }
 
 $(document).ready(function() {
-    var home = new Home();    
+    let home = new Home();
+    home.initialse();
 });

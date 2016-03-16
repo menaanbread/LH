@@ -10,6 +10,9 @@ var Home = (function () {
             $(this.showLanguageButton.reference).click(function (e) { _this.onShowWordsClick(e); });
         }
     }
+    Home.prototype.test3 = function () {
+        alert("test3");
+    };
     Home.prototype.onShowWordsClick = function (e) {
         var _this = this;
         if (this.showLanguageButton.shouldShowWords) {

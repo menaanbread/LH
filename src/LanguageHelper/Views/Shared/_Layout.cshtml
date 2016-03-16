@@ -6,20 +6,20 @@
         <title>@ViewData["Title"] - LanguageHelper</title>
 
         <environment names="Development">
-            <link rel="stylesheet" href="~/css/bootstrap/bootstrap.css" />
-            <link rel="stylesheet" href="~/css/site.css" />
-            <link rel="stylesheet" href="~/css/homepage.css" />
+            <link rel="stylesheet" href="~/css/post/core/bootstrap/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/post/site.css" />
+            <link rel="stylesheet" href="~/css/post/homepage.css" />
         </environment>
         <environment names="Staging,Production">
             <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
                   asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
                   asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-            <link rel="stylesheet" href="~/css/homepage.css" />
+            <link rel="stylesheet" href="~/css/post/site.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/post/homepage.css" />
         </environment>
         <environment names="Development">
-            <script src="~/js/jquery/jquery.js"></script>
-            <script src="~/js/bootstrap/bootstrap.js"></script>
+            <script src="~/js/core/jquery/jquery.js"></script>
+            <script src="~/js/core/bootstrap/bootstrap.js"></script>
             <script src="~/js/Home.js"></script>
         </environment>
         <environment names="Staging,Production">
