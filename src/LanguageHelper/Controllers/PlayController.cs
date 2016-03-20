@@ -1,23 +1,36 @@
 using Microsoft.AspNet.Mvc;
 using System;
-using LanguageHelper.ViewModels;
 using System.Collections.Generic;
+using LanguageHelper.Domain.Game;
+using LanguageHelper.Services.Interfaces;
+using LanguageHelper.ViewModels;
 
 namespace LanguageHelper.Controllers
 {
     public class PlayController : Controller
     {
+        private readonly ILanguageHelperService _languageHelperService = null;
+        
+        public PlayController(ILanguageHelperService languageHelperService)
+        {
+            this._languageHelperService = languageHelperService;
+        }
+        
         public IActionResult Start(WordIdsViewModel word)
         {
-            var playStartViewModel = MapToPlayStartViewModel(word);
+            var playStartViewModel = new PlayStartViewModel();
+            var wordIds = GetWordIds(word);
             
+            var startTestResponse = this._languageHelperService.StartTest(new StartTestRequest() { SelectedWordIds = wordIds });
+            playStartViewModel.SelectedWords = startTestResponse.PracticeWords;
+                        
             return View(playStartViewModel);
         }
         
         //ToDo - move me somewhere more sensible
-        private PlayStartViewModel MapToPlayStartViewModel(WordIdsViewModel wordIdsViewModel)
+        private List<int> GetWordIds(WordIdsViewModel wordIdsViewModel)
         {
-            var playStartViewModel = new PlayStartViewModel();
+            var wordIds = new List<int>();
             
             var sanitisedSelectedList = GetSanitisedSelectedList(wordIdsViewModel.Selected);
             
@@ -29,11 +42,11 @@ namespace LanguageHelper.Controllers
             {
                 if (sanitisedSelectedList[i])
                 {
-                    playStartViewModel.SelectedWords.Add(wordIdsViewModel.Word.Id[i]);
+                    wordIds.Add(wordIdsViewModel.Word.Id[i]);
                 }
             }
             
-            return playStartViewModel;
+            return wordIds;
         }
         
         //ToDo - move this with MapToPlayStartViewModel

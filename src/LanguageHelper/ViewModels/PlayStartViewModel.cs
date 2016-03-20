@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using LanguageHelper.Domain.Languages;
 
 namespace LanguageHelper.ViewModels
 {
@@ -6,10 +7,10 @@ namespace LanguageHelper.ViewModels
     {
         public PlayStartViewModel()
         {
-            SelectedWords = new List<int>();
+            SelectedWords = new List<Word>();
         }
         
         //ToDo - change this to list of words
-        public List<int> SelectedWords { get; set; }
+        public List<Word> SelectedWords { get; set; }
     }
 }

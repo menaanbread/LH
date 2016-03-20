@@ -1,8 +1,26 @@
 @model PlayStartViewModel
 
-<h1>THIS WORKD</h1>
+<h1>Testing out @Model.SelectedWords.Count words!</h1>
 
-@foreach (var id in Model.SelectedWords)
+<div id="play-area">
+    <label id="play-question" class="play-question">Test question</label>
+    
+    <input type="text" id="play-answer" class="play-answer"/>
+    
+    <button type="button" id="play-check" class="btn btn-success">Check</button>
+</div>
+
+@foreach (var word in Model.SelectedWords)
 {
-    <p>@id</p>
+    <input type="hidden" class="play-word" data-id="@word.Id" data-translation="@word.Translation" data-english="@word.EnglishTranslation"/>
+    @foreach (var sentance in word.Sentances)
+    {
+        <input type="hidden" class="play-sentance" data-id="@word.Id" data-sentance-translation="@sentance.TranslatedSentance" data-sentance-english="@sentance.EnglishSentance" />
+    }
 }
+
+<environment names="Development,Staging,Production">
+    <script src="~/js/model/play-model.js"></script>
+    <script src="~/js/controller/play-controller.js"></script>
+    <script src="~/js/view/play-view.js"></script>
+</environment>

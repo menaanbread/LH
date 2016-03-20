@@ -31,6 +31,17 @@ namespace LanguageHelper.Test.Mocks.Repositories
             return _languages.Find(x => x.Id == languageId).Words;
         }
         
+        List<Word> ILanguageRepository.ListWords(List<int> wordIds)
+        {
+            var foundWords = new List<Word>();
+            
+            wordIds.ForEach(x => {
+               foundWords.Add(_words.Find(w => w.Id == x)); 
+            });
+            
+            return foundWords;
+        }
+        
         List<Sentance> ILanguageRepository.ListSentances(int wordId)
         {
             return _words.Find(x => x.Id == wordId).Sentances;

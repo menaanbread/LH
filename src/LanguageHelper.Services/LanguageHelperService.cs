@@ -22,7 +22,18 @@ namespace LanguageHelper.Services
         //Test game
         StartTestResponse ILanguageHelperService.StartTest(StartTestRequest startTestRequest)
         {
-            throw new NotImplementedException();
+            var startTestResponse = new StartTestResponse();
+            
+            try
+            {
+                startTestResponse.PracticeWords = _languageRepository.ListWords(startTestRequest.SelectedWordIds);
+            }
+            catch (Exception e)
+            {
+                throw new LanguageHelperException("An exception occurred during a StartTest operation.", e);
+            }
+            
+            return startTestResponse;
         }
         
         EndTestResponse ILanguageHelperService.EndTest(EndTestRequest endTestRequest)
