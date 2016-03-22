@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - LanguageHelper</title>
+        <title>@ViewData["Title"] - Language Helper</title>
 
         <environment names="Development">
             <link rel="stylesheet" href="~/css/post/core/bootstrap/bootstrap.css" />
@@ -21,6 +21,7 @@
             <script src="~/js/core/jquery/jquery.js"></script>
             <script src="~/js/core/bootstrap/bootstrap.js"></script>
             <script src="~/js/Home.js"></script>
+            <script src="~/js/core/keycodes.js"></script>
         </environment>
         <environment names="Staging,Production">
             <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
@@ -32,18 +33,22 @@
                     asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
             </script>
             <script src="~/js/Home.js"></script>
+            <script src="~/js/core/keycodes.js"></script>
         </environment>
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Add</a></li>
-                    <li><a href="#">Account</a></li>
-                </ul>
-            </div>
-        </nav>
+        @if (@ViewData["ShowNav"] == null || @ViewData["ShowNav"] == "true") 
+        {
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Add</a></li>
+                        <li><a href="#">Account</a></li>
+                    </ul>
+                </div>
+            </nav>
+        }
         <div class="container body-content">
             @RenderBody()
         </div>       

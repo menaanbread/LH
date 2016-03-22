@@ -1,13 +1,18 @@
 @model PlayStartViewModel
 
+@{
+    ViewData["Title"] = "Play";
+    ViewData["ShowNav"] = "false";
+}
+
 <h1>Testing out @Model.SelectedWords.Count words!</h1>
 
 <div id="play-area">
     <label id="play-question" class="play-question">Test question</label>
     
-    <input type="text" id="play-answer" class="play-answer"/>
+    <textarea type="text" id="play-answer" class="play-answer"></textarea>
     
-    <button type="button" id="play-check" class="btn btn-success">Check</button>
+    <button type="button" id="play-check" class="btn btn-success play-check">Check</button>
 </div>
 
 @foreach (var word in Model.SelectedWords)

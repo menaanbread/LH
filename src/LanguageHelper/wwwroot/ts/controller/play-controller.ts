@@ -1,4 +1,7 @@
+/// <reference path="../core/keycodes.ts" />
+
 module LanguageHelper.Play {
+    import KeyCodes = LanguageHelper.Core.KeyCodes;
     const QuestionLimit = 10;
 
     export class PlayController {
@@ -29,6 +32,7 @@ module LanguageHelper.Play {
             this.view.playQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
             this.currentQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
             this.currentAnswer = showEnglish ? questionSentance.translation : questionSentance.englishSentance;
+            this.view.answerTextbox.val("");
         }
 
         private grabWord(): PlayWord {
@@ -68,7 +72,8 @@ module LanguageHelper.Play {
         private setupEventListeners() {
             this.view.answerTextbox.on("keydown", (e) => {
                 // If enter/return was hit
-                if (e.keyCode === 13) {
+                if (e.keyCode === KeyCodes.Return) {
+                    e.preventDefault();
                     this.checkAnswer();
                 }
              });
@@ -92,7 +97,7 @@ module LanguageHelper.Play {
             } else {
                 alert("Times up! You got " + this.correctAnswers + " questions correct.");
                 // ToDo - make this not hardcoded
-                window.location.href = "http://localhost:5000/home/index";
+                window.location.href = "http://localhost:5000/";
             }
         }
 

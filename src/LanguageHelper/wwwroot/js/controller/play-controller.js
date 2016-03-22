@@ -1,7 +1,9 @@
+/// <reference path="../core/keycodes.ts" />
 var LanguageHelper;
 (function (LanguageHelper) {
     var Play;
     (function (Play) {
+        var KeyCodes = LanguageHelper.Core.KeyCodes;
         var QuestionLimit = 10;
         var PlayController = (function () {
             function PlayController() {
@@ -23,6 +25,7 @@ var LanguageHelper;
                 this.view.playQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
                 this.currentQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
                 this.currentAnswer = showEnglish ? questionSentance.translation : questionSentance.englishSentance;
+                this.view.answerTextbox.val("");
             };
             PlayController.prototype.grabWord = function () {
                 return this.playData.words[this.getNext(this.playData.wordCount)];
@@ -53,7 +56,8 @@ var LanguageHelper;
                 var _this = this;
                 this.view.answerTextbox.on("keydown", function (e) {
                     // If enter/return was hit
-                    if (e.keyCode === 13) {
+                    if (e.keyCode === KeyCodes.Return) {
+                        e.preventDefault();
                         _this.checkAnswer();
                     }
                 });
@@ -75,7 +79,7 @@ var LanguageHelper;
                 else {
                     alert("Times up! You got " + this.correctAnswers + " questions correct.");
                     // ToDo - make this not hardcoded
-                    window.location.href = "http://localhost:5000/home/index";
+                    window.location.href = "http://localhost:5000/";
                 }
             };
             PlayController.prototype.getNext = function (size) {
