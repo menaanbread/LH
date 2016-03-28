@@ -13,6 +13,7 @@ var LanguageHelper;
             PlayController.prototype.initialise = function () {
                 this.view = new Play.PlayView();
                 this.playData = new Play.PlayModel();
+                this.correctionAnswers = new Play.PlayCorrectionAnswers();
                 this.playData.words = new Array();
                 this.playData.words = this.initialseModel();
                 this.setQuestion();
@@ -25,6 +26,7 @@ var LanguageHelper;
                 this.view.playQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
                 this.currentQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
                 this.currentAnswer = showEnglish ? questionSentance.translation : questionSentance.englishSentance;
+                this.currentWordId = questionSentance.wordId;
                 this.view.answerTextbox.val("");
             };
             PlayController.prototype.grabWord = function () {
@@ -46,6 +48,7 @@ var LanguageHelper;
                         var foundSentance = new Play.PlaySentance();
                         foundSentance.translation = this.view.translationSentance(foundSentances[j]);
                         foundSentance.englishSentance = this.view.englishSentance(foundSentances[j]);
+                        foundSentance.wordId = this.view.wordId(foundSentances[j]);
                         foundWord.sentances.push(foundSentance);
                     }
                     foundWords.push(foundWord);
@@ -70,6 +73,7 @@ var LanguageHelper;
                     this.correctAnswers++;
                 }
                 else {
+                    this.correctionAnswers.answers.push(new Play.PlayCorrectionAnswer(this.currentWordId, usersAnswer, this.currentAnswer));
                     alert("That was wrong!\nThe correct answer was " + this.currentAnswer);
                 }
                 this.questionsAnswered++;
@@ -78,8 +82,7 @@ var LanguageHelper;
                 }
                 else {
                     alert("Times up! You got " + this.correctAnswers + " questions correct.");
-                    // ToDo - make this not hardcoded
-                    window.location.href = "http://localhost:5000/";
+                    this.postAnswers();
                 }
             };
             PlayController.prototype.getNext = function (size) {
@@ -87,6 +90,26 @@ var LanguageHelper;
             };
             PlayController.prototype.showEnglish = function () {
                 return Math.floor(Math.random() * 2) === 1;
+            };
+            PlayController.prototype.postAnswers = function () {
+                var _this = this;
+                this.view.form.submit(function () {
+                    _this.correctionAnswers.answers.forEach(function (correctionAnswer) {
+                        $("<input />").attr("type", "hidden")
+                            .attr("name", "finishPlayModel.CorrectionAnswers.WordId")
+                            .attr("value", correctionAnswer.wordId)
+                            .appendTo(_this.view.form);
+                        $("<input />").attr("type", "hidden")
+                            .attr("name", "finishPlayModel.CorrectionAnswersGivenAnswer")
+                            .attr("value", correctionAnswer.givenAnswer)
+                            .appendTo(_this.view.form);
+                        $("<input />").attr("type", "hidden")
+                            .attr("name", "finishPlayModel.CorrectionAnswers.CorrectAnswer")
+                            .attr("value", correctionAnswer.correctAnswer)
+                            .appendTo(_this.view.form);
+                    });
+                });
+                this.view.form.submit();
             };
             return PlayController;
         }());

@@ -9,12 +9,15 @@ module LanguageHelper.Play {
         private playData: PlayModel;
         private currentQuestion: string;
         private currentAnswer: string;
+        private currentWordId: number;
         private questionsAnswered = 0;
         private correctAnswers = 0;
+        private correctionAnswers: PlayCorrectionAnswers;
 
         public initialise() {
             this.view = new PlayView();
             this.playData = new PlayModel();
+            this.correctionAnswers = new PlayCorrectionAnswers();
 
             this.playData.words = new Array<PlayWord>();
             this.playData.words = this.initialseModel();
@@ -32,6 +35,8 @@ module LanguageHelper.Play {
             this.view.playQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
             this.currentQuestion = showEnglish ? questionSentance.englishSentance : questionSentance.translation;
             this.currentAnswer = showEnglish ? questionSentance.translation : questionSentance.englishSentance;
+            this.currentWordId = questionSentance.wordId;
+
             this.view.answerTextbox.val("");
         }
 
@@ -59,6 +64,7 @@ module LanguageHelper.Play {
                     let foundSentance: PlaySentance = new PlaySentance();
                     foundSentance.translation = this.view.translationSentance(foundSentances[j]);
                     foundSentance.englishSentance = this.view.englishSentance(foundSentances[j]);
+                    foundSentance.wordId = this.view.wordId(foundSentances[j]);
 
                     foundWord.sentances.push(foundSentance);
                 }
@@ -87,6 +93,7 @@ module LanguageHelper.Play {
                 alert("That was right!");
                 this.correctAnswers++;
             } else {
+                this.correctionAnswers.answers.push(new PlayCorrectionAnswer(this.currentWordId, usersAnswer, this.currentAnswer));
                 alert("That was wrong!\nThe correct answer was " + this.currentAnswer);
             }
 
@@ -96,8 +103,7 @@ module LanguageHelper.Play {
                 this.setQuestion();
             } else {
                 alert("Times up! You got " + this.correctAnswers + " questions correct.");
-                // ToDo - make this not hardcoded
-                window.location.href = "http://localhost:5000/";
+                this.postAnswers();
             }
         }
 
@@ -107,6 +113,28 @@ module LanguageHelper.Play {
 
         private showEnglish(): boolean {
             return Math.floor(Math.random() * 2) === 1;
+        }
+
+        private postAnswers() {
+            this.view.form.submit(() => {
+                this.correctionAnswers.answers.forEach((correctionAnswer: PlayCorrectionAnswer) => {
+                     $("<input />").attr("type", "hidden")
+                        .attr("name", "finishPlayModel.CorrectionAnswers.WordId")
+                        .attr("value", correctionAnswer.wordId)
+                        .appendTo(this.view.form);
+
+                     $("<input />").attr("type", "hidden")
+                        .attr("name", "finishPlayModel.CorrectionAnswersGivenAnswer")
+                        .attr("value", correctionAnswer.givenAnswer)
+                        .appendTo(this.view.form);
+
+                     $("<input />").attr("type", "hidden")
+                        .attr("name", "finishPlayModel.CorrectionAnswers.CorrectAnswer")
+                        .attr("value", correctionAnswer.correctAnswer)
+                        .appendTo(this.view.form);
+                });
+            });
+            this.view.form.submit();
         }
     }
 

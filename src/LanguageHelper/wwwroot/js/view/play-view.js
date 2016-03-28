@@ -7,6 +7,7 @@ var LanguageHelper;
             function PlayView() {
                 this.checkButton = $("#play-check");
                 this.answerTextbox = $("#play-answer");
+                this.form = $("#play-form");
             }
             Object.defineProperty(PlayView.prototype, "words", {
                 get: function () {

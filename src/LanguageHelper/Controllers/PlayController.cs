@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LanguageHelper.Domain.Game;
 using LanguageHelper.Services.Interfaces;
 using LanguageHelper.ViewModels;
+using LanguageHelper.Models;
 
 namespace LanguageHelper.Controllers
 {
@@ -25,6 +26,17 @@ namespace LanguageHelper.Controllers
             playStartViewModel.SelectedWords = startTestResponse.PracticeWords;
                         
             return View(playStartViewModel);
+        }
+        
+        public IActionResult Finish(FinishPlayModel finishPlayModel) 
+        {
+            var finishPlayViewModel = new FinishPlayViewModel();
+            
+            finishPlayViewModel.CorrectAnswers = 10 - finishPlayModel.CorrectionAnswers.Count;
+            finishPlayViewModel.CorrectPercentage = (finishPlayViewModel.CorrectAnswers / 10) * 100;
+            finishPlayViewModel.CorrectionAnswers = finishPlayModel.CorrectionAnswers;
+            
+            return View(finishPlayViewModel);            
         }
         
         //ToDo - move me somewhere more sensible

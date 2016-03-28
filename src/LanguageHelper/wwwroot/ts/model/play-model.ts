@@ -18,6 +18,7 @@ module LanguageHelper.Play {
     }
 
     export class PlaySentance {
+        public wordId: number;
         public translation: string;
         public englishSentance: string;
     }

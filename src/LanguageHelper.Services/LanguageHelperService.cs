@@ -101,13 +101,13 @@ namespace LanguageHelper.Services
             throw new NotImplementedException();
         }
         
-        ListSentancesResponse ILanguageHelperService.ListSentances(ListSentancesRequest listSentancesRequest)
+        ListSentancesResponse ILanguageHelperService.ListSentences(ListSentancesRequest listSentancesRequest)
         {
             var listSentancesResponse = new ListSentancesResponse();
             
             try
             {
-                listSentancesResponse.Sentances = _languageRepository.ListSentances(listSentancesRequest.WordId);
+                listSentancesResponse.Sentances = _languageRepository.ListSentences(listSentancesRequest.WordId);
             }
             catch (Exception e)
             {
@@ -115,6 +115,22 @@ namespace LanguageHelper.Services
             }
             
             return listSentancesResponse;          
+        }
+        
+        ListSentancesResponse ILanguageHelperService.FindSentences(FindSentencesRequest findSentencesRequest)
+        {
+            var listSentancesResponse = new ListSentancesResponse();
+            
+            try
+            {
+                listSentancesResponse.Sentances = _languageRepository.ListSentences(findSentencesRequest.SentenceIds);
+            }
+            catch (Exception e)
+            {
+                throw new LanguageHelperException("An exception occurred during a FindSentences operation.", e);
+            }
+            
+            return listSentancesResponse;
         }
         
         ListLanguagesResponse ILanguageHelperService.ListLanguages()

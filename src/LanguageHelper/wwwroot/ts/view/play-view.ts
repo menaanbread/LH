@@ -5,10 +5,12 @@ module LanguageHelper.Play {
 
         public checkButton: JQuery;
         public answerTextbox: JQuery;
+        public form: JQuery;
 
         constructor() {
             this.checkButton = $("#play-check");
             this.answerTextbox = $("#play-answer");
+            this.form = $("#play-form");
         }
 
         public get words() {

@@ -45,7 +45,7 @@ namespace LanguageHelper.Controllers
             var sentancesViewModel = new SentancesViewModel();
             sentancesViewModel.Sentances = new List<Sentance>();
             
-            sentancesViewModel.Sentances = _languageHelperService.ListSentances(new ListSentancesRequest() { WordId = wordId }).Sentances;
+            sentancesViewModel.Sentances = _languageHelperService.ListSentences(new ListSentancesRequest() { WordId = wordId }).Sentances;
 
             return PartialView(sentancesViewModel);
         }

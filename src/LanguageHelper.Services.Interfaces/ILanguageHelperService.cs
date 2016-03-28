@@ -28,7 +28,8 @@ namespace LanguageHelper.Services.Interfaces
         //List
         ListWordsResponse ListWords(ListWordsRequest listWordsRequest);
         FindWordsResponse FindWords(FindWordsRequest findWordsRequest);
-        ListSentancesResponse ListSentances(ListSentancesRequest listSentancesRequest);
+        ListSentancesResponse ListSentences(ListSentancesRequest listSentancesRequest);
+        ListSentancesResponse FindSentences(FindSentencesRequest findSentencesRequest);
         ListLanguagesResponse ListLanguages();
     }
 }
