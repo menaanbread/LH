@@ -93,20 +93,22 @@ var LanguageHelper;
             };
             PlayController.prototype.postAnswers = function () {
                 var _this = this;
+                var i = 0;
                 this.view.form.submit(function () {
                     _this.correctionAnswers.answers.forEach(function (correctionAnswer) {
                         $("<input />").attr("type", "hidden")
-                            .attr("name", "finishPlayModel.CorrectionAnswers.WordId")
+                            .attr("name", "finishPlayModel.CorrectionAnswers[" + i + "].WordId")
                             .attr("value", correctionAnswer.wordId)
                             .appendTo(_this.view.form);
                         $("<input />").attr("type", "hidden")
-                            .attr("name", "finishPlayModel.CorrectionAnswersGivenAnswer")
+                            .attr("name", "finishPlayModel.CorrectionAnswers[" + i + "].GivenAnswer")
                             .attr("value", correctionAnswer.givenAnswer)
                             .appendTo(_this.view.form);
                         $("<input />").attr("type", "hidden")
-                            .attr("name", "finishPlayModel.CorrectionAnswers.CorrectAnswer")
+                            .attr("name", "finishPlayModel.CorrectionAnswers[" + i + "].CorrectAnswer")
                             .attr("value", correctionAnswer.correctAnswer)
                             .appendTo(_this.view.form);
+                        i++;
                     });
                 });
                 this.view.form.submit();

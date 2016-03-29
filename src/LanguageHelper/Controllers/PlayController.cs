@@ -33,7 +33,8 @@ namespace LanguageHelper.Controllers
             var finishPlayViewModel = new FinishPlayViewModel();
             
             finishPlayViewModel.CorrectAnswers = 10 - finishPlayModel.CorrectionAnswers.Count;
-            finishPlayViewModel.CorrectPercentage = (finishPlayViewModel.CorrectAnswers / 10) * 100;
+            var correctPercent = (finishPlayViewModel.CorrectAnswers / 10.0) * 100;
+            finishPlayViewModel.CorrectPercentage = (int)correctPercent;
             finishPlayViewModel.CorrectionAnswers = finishPlayModel.CorrectionAnswers;
             
             return View(finishPlayViewModel);            

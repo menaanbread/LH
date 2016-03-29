@@ -116,22 +116,25 @@ module LanguageHelper.Play {
         }
 
         private postAnswers() {
+            let i = 0;
             this.view.form.submit(() => {
                 this.correctionAnswers.answers.forEach((correctionAnswer: PlayCorrectionAnswer) => {
                      $("<input />").attr("type", "hidden")
-                        .attr("name", "finishPlayModel.CorrectionAnswers.WordId")
+                        .attr("name", "finishPlayModel.CorrectionAnswers[" + i + "].WordId")
                         .attr("value", correctionAnswer.wordId)
                         .appendTo(this.view.form);
 
                      $("<input />").attr("type", "hidden")
-                        .attr("name", "finishPlayModel.CorrectionAnswersGivenAnswer")
+                        .attr("name", "finishPlayModel.CorrectionAnswers[" + i + "].GivenAnswer")
                         .attr("value", correctionAnswer.givenAnswer)
                         .appendTo(this.view.form);
 
                      $("<input />").attr("type", "hidden")
-                        .attr("name", "finishPlayModel.CorrectionAnswers.CorrectAnswer")
+                        .attr("name", "finishPlayModel.CorrectionAnswers[" + i + "].CorrectAnswer")
                         .attr("value", correctionAnswer.correctAnswer)
                         .appendTo(this.view.form);
+
+                        i++;
                 });
             });
             this.view.form.submit();
