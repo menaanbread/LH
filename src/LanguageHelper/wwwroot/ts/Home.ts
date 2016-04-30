@@ -1,4 +1,7 @@
 /// <reference path="../typings/jquery.d.ts" />
+/// <reference path="./ioc/container.ts" />
+/// <reference path="./services/http-service/ihttpservice.ts" />
+/// <reference path="./services/http-service/jquery-httpservice.ts" />
 
 class Home {
 
@@ -128,4 +131,7 @@ class ShowSentances {
 $(document).ready(function() {
     let home = new Home();
     home.initialse();
+    
+    let container = new IoC.IocContainer();
+    container.install(HttpService.IHttpService, HttpService.JQueryHttpService);
 });
