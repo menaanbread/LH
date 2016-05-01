@@ -25,6 +25,11 @@ module IoC {
         private _interfaces: Array<string>;
         private _implementations: Array<Object>;
 
+        constructor() {
+          this._interfaces = new Array<string>();
+          this._implementations = new Array<Object>();
+        }
+
         public add<TInterface>(interfaceName: string, resolution: Object): void {
             this._interfaces.push(interfaceName);
             this._implementations.push(resolution);

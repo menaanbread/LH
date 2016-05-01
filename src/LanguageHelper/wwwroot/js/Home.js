@@ -124,5 +124,5 @@ $(document).ready(function () {
     var container = new IoC.IocContainer();
     container.install("IHttpService", HttpService.JQueryHttpService);
     var mything = container.resolve("IHttpService");
-    mything.Test();
+    alert(mything.Test());
 });

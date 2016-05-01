@@ -17,6 +17,8 @@ var IoC;
     IoC.IocContainer = IocContainer;
     var DependencyContainer = (function () {
         function DependencyContainer() {
+            this._interfaces = new Array();
+            this._implementations = new Array();
         }
         DependencyContainer.prototype.add = function (interfaceName, resolution) {
             this._interfaces.push(interfaceName);

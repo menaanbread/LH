@@ -6,14 +6,14 @@
 
 <h2>Language Helper</h2>
 
-@using (Html.BeginForm("Start", "Play")) 
+@using (Html.BeginForm("Start", "Play"))
 {
-    @foreach (var language in Model.Languages) 
+    @foreach (var language in Model.Languages)
     {
         <span class="language-option">
             <h3 class="language-option">@language.Name</h3>
-            <input type="radio" name="select-language" data-languageid="@language.Id" class="select-language"/>  
-            <br/>  
+            <input type="radio" name="select-language" data-languageid="@language.Id" class="select-language"/>
+            <br/>
         </span>
     }
 
@@ -28,4 +28,8 @@
 
 <environment names="Development">
     <script src="~/js/Home.js"></script>
+    <script src="~/js/Home.js"></script>
+    <script src="~/js/ioc/container.js"></script>
+    <script src="~/js/services/http-service/ihttpservice.js"></script>
+    <script src="~/js/services/http-service/jquery-httpservice.js"></script>
 </environment>

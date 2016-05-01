@@ -136,5 +136,5 @@ $(document).ready(function() {
     container.install("IHttpService", HttpService.JQueryHttpService);
 
     let mything = container.resolve<HttpService.IHttpService>("IHttpService");
-    mything.Test();
+    alert(mything.Test());
 });
