@@ -2,6 +2,7 @@
 "use strict";
 
 var gulp = require("gulp"),
+  sourcemaps = require('gulp-sourcemaps'),
   rimraf = require("rimraf"),
   concat = require("gulp-concat"),
   cssmin = require("gulp-cssmin"),
@@ -36,13 +37,15 @@ var paths = {
 
 gulp.task("ts:compile", function() {
     return gulp.src(paths.ts)
+        .pipe(sourcemaps.init())
         .pipe(ts({
             allowJs: true,
             noImplicitAny: true,
-            target: "ES5",
+            target: "ES6",
             sourceMap: true,
             outDir: paths.tsOut
         }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.tsOut));
 });
 

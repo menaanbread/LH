@@ -1,10 +1,11 @@
 {
   "name": "LanguageHelper",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "2.5.2",
     "gulp-cssmin": "0.1.7",
+    "gulp-sourcemaps": "2.0.0-alpha",
     "typescript": "^1.8.7",
     "tslint": "^3.6.0",
     "gulp-tslint": "^4.3.3",

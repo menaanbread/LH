@@ -10,7 +10,7 @@ class Home {
     public showLanguageButton: ShowHideButton;
     public wordsArea: JQuery;
 
-    public constructor() {
+    public constructor(private httpService: HttpService.IHttpService) {
         this.showLanguageButton = new ShowHideButton();
         this.showLanguageButton.shouldShowWords = true;
         this.wordsArea = $("#wordsArea");
@@ -24,13 +24,11 @@ class Home {
 
     private onShowWordsClick(e: JQueryEventObject) {
         if (this.showLanguageButton.shouldShowWords) {
-            $.ajax({
-                data: { languageId : this.showLanguageButton.languageId },
-                type: "POST",
-                url: this.SHOW_WORDS_URL
-            })
-            .done((html) => this.populateWordsArea(html, this))
-            .fail(this.handleAjaxError);
+            this.httpService.post(
+                this.SHOW_WORDS_URL,
+                { languageId : this.showLanguageButton.languageId },
+                (html) => this.populateWordsArea(html, this),
+                this.handleAjaxError);
         } else {
             this.wordsArea.hide();
             this.showLanguageButton.shouldShowWords = true;
@@ -43,12 +41,12 @@ class Home {
         context.wordsArea.html(html);
         context.showLanguageButton.shouldShowWords = false;
         context.showLanguageButton.buttonText = "Hide Words";
-        let sentances = new ShowSentances();
+        let sentances = new ShowSentances(this.httpService);
         sentances.intialise();
     }
 
-    private handleAjaxError(jqXHR: any, textStatus: any, errorThrown: SyntaxError) {
-        alert(errorThrown.message);
+    private handleAjaxError(errorMessage: string) {
+        alert(errorMessage);
     }
 }
 
@@ -99,7 +97,7 @@ class ShowSentances {
     public LIST_SENTANCES_URL: string = "Home/ListSentances";
     public reference: JQuery;
 
-    public constructor() {
+    public constructor(private httpService: HttpService.IHttpService) {
         this.reference = $("#sentances-modal");
     }
 
@@ -110,31 +108,28 @@ class ShowSentances {
     }
 
     private populateAndShow(e: JQueryEventObject, context: ShowSentances) {
-        $.ajax({
-                data: { wordId : $(e.relatedTarget).data("wordid") },
-                type: "POST",
-                url: context.LIST_SENTANCES_URL
-            })
-            .done(context.populatePopup)
-            .fail(context.handleAjaxError);
+        this.httpService.post(
+            context.LIST_SENTANCES_URL,
+            { wordId : $(e.relatedTarget).data("wordid") },
+            context.populatePopup,
+            context.handleAjaxError);
     }
 
     private populatePopup(html: string) {
         $(".modal-body").html(html);
     }
 
-    private handleAjaxError(jqXHR: any, textStatus: any, errorThrown: SyntaxError) {
-        alert(errorThrown.message);
+    private handleAjaxError(errorMessage: string) {
+        alert(errorMessage);
     }
 }
 
 $(document).ready(function() {
-    let home = new Home();
-    home.initialse();
-
     let container = new IoC.IocContainer();
     container.install("IHttpService", HttpService.JQueryHttpService);
 
-    let mything = container.resolve<HttpService.IHttpService>("IHttpService");
-    alert(mything.Test());
+    let httpService = container.resolve<HttpService.IHttpService>("IHttpService");
+
+    let home = new Home(httpService);
+    home.initialse();
 });
