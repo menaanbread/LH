@@ -1,36 +1,38 @@
 module IoC {
     export interface IContainer {
-        install<TInterface, TImplementation>(interfaceType: { TInterface; }, type: { new(): TImplementation ;});
-        resolve(interfaceName: string): any;
+
+        install<TInterface, TImplementation>(interfaceName: string, type: { new(): TImplementation; }): void;
+        resolve<TInterface>(interfaceName: string): TInterface;
     }
-    
+
     export class IocContainer implements IContainer {
+
         private _dependencyContainer: DependencyContainer = new DependencyContainer();
 
         // Current implementation will work with Singletons only
-        public install<TInterface, TImplementation>(interfaceType: { TInterface; }, implementationType: { new(): TImplementation ;}) {
-            var dependency: TImplementation = new implementationType();
-            
-            this._dependencyContainer.add(interfaceType, dependency);
+        public install<TInterface, TImplementation>(interfaceName: string, implementationType: { new(): TImplementation; }): void {
+            let dependency: TImplementation = new implementationType();
+            this._dependencyContainer.add(interfaceName, dependency);
         }
-        
-        public resolve(interfaceName: string): Object {
-            return this._dependencyContainer.resolve(interfaceName);
+
+        public resolve<TInterface>(interfaceName: string): TInterface {
+            return this._dependencyContainer.resolve<TInterface>(interfaceName);
         }
     }
-    
+
     class DependencyContainer {
-        private _interfaces: Array<any>;
+
+        private _interfaces: Array<string>;
         private _implementations: Array<Object>;
-        
-        public add<TInterface>(interfaceType: { TInterface; }, resolution: Object): void {
-            this._interfaces.push(interfaceType);
+
+        public add<TInterface>(interfaceName: string, resolution: Object): void {
+            this._interfaces.push(interfaceName);
             this._implementations.push(resolution);
         }
-        
-        public resolve(interfaceName: string): Object {
+
+        public resolve<TInterface>(interfaceName: string): TInterface {
             let dependencyIndex: number = this._interfaces.indexOf(interfaceName);
-            return this._implementations[dependencyIndex];
+            return <TInterface>this._implementations[dependencyIndex];
         }
     }
 }

@@ -74,11 +74,12 @@ $body-colour: #eeeeee;
 
 .play-check {
     font-size: 3em;
-    width: 100%;
     height: 7rem;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
+
     .play-answer {
         height: 14rem;
     }

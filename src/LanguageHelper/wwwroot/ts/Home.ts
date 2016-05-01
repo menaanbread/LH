@@ -131,7 +131,10 @@ class ShowSentances {
 $(document).ready(function() {
     let home = new Home();
     home.initialse();
-    
+
     let container = new IoC.IocContainer();
-    container.install(HttpService.IHttpService, HttpService.JQueryHttpService);
+    container.install("IHttpService", HttpService.JQueryHttpService);
+
+    let mything = container.resolve<HttpService.IHttpService>("IHttpService");
+    mything.Test();
 });

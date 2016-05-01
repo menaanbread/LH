@@ -1,4 +1,7 @@
 /// <reference path="../typings/jquery.d.ts" />
+/// <reference path="./ioc/container.ts" />
+/// <reference path="./services/http-service/ihttpservice.ts" />
+/// <reference path="./services/http-service/jquery-httpservice.ts" />
 var Home = (function () {
     function Home() {
         this.SHOW_WORDS_URL = "Home/LanguageSet";
@@ -118,4 +121,8 @@ var ShowSentances = (function () {
 $(document).ready(function () {
     var home = new Home();
     home.initialse();
+    var container = new IoC.IocContainer();
+    container.install("IHttpService", HttpService.JQueryHttpService);
+    var mything = container.resolve("IHttpService");
+    mything.Test();
 });
