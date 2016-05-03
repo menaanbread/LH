@@ -126,7 +126,7 @@ class ShowSentances {
 
 $(document).ready(function() {
     let container = new IoC.IocContainer();
-    container.install("IHttpService", HttpService.JQueryHttpService);
+    container.register("IHttpService", HttpService.JQueryHttpService, IoC.LifeStyle.Singleton);
 
     let httpService = container.resolve<HttpService.IHttpService>("IHttpService");
 

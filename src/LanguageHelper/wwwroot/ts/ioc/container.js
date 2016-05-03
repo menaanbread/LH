@@ -1,31 +1,44 @@
 var IoC;
 (function (IoC) {
-    class IocContainer {
-        constructor() {
+    (function (LifeStyle) {
+        LifeStyle[LifeStyle["Singleton"] = 0] = "Singleton";
+        LifeStyle[LifeStyle["Transient"] = 1] = "Transient";
+    })(IoC.LifeStyle || (IoC.LifeStyle = {}));
+    var LifeStyle = IoC.LifeStyle;
+    var IocContainer = (function () {
+        function IocContainer() {
             this._dependencyContainer = new DependencyContainer();
         }
-        install(interfaceName, implementationType) {
-            let dependency = new implementationType();
-            this._dependencyContainer.add(interfaceName, dependency);
-        }
-        resolve(interfaceName) {
+        IocContainer.prototype.register = function (interfaceName, type, lifestyle) {
+            switch (lifestyle) {
+                case LifeStyle.Singleton:
+                    var dependency = new type();
+                    this._dependencyContainer.add(interfaceName, function () { return dependency; });
+                    break;
+                case LifeStyle.Transient:
+                    this._dependencyContainer.add(interfaceName, function () { return new type(); });
+                    break;
+            }
+        };
+        IocContainer.prototype.resolve = function (interfaceName) {
             return this._dependencyContainer.resolve(interfaceName);
-        }
-    }
+        };
+        return IocContainer;
+    })();
     IoC.IocContainer = IocContainer;
-    class DependencyContainer {
-        constructor() {
+    var DependencyContainer = (function () {
+        function DependencyContainer() {
             this._interfaces = new Array();
             this._implementations = new Array();
         }
-        add(interfaceName, resolution) {
+        DependencyContainer.prototype.add = function (interfaceName, resolution) {
             this._interfaces.push(interfaceName);
             this._implementations.push(resolution);
-        }
-        resolve(interfaceName) {
-            let dependencyIndex = this._interfaces.indexOf(interfaceName);
-            return this._implementations[dependencyIndex];
-        }
-    }
+        };
+        DependencyContainer.prototype.resolve = function (interfaceName) {
+            var dependencyIndex = this._interfaces.indexOf(interfaceName);
+            return this._implementations[dependencyIndex]();
+        };
+        return DependencyContainer;
+    })();
 })(IoC || (IoC = {}));
-//# sourceMappingURL=container.js.map
